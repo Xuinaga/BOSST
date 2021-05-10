@@ -27,7 +27,7 @@ public class Model {
 
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbd:mariadb://204.204.5.1:3306/erlete_db", "BOSST", "BOSST");
+            conn = DriverManager.getConnection("jdbd:mariadb://204.204.5.1:3306/erlete_db", "bosst", "bosst");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
