@@ -34,7 +34,7 @@ public class Controller implements ActionListener {
 
     private void anadirActionListener(ActionListener listener) {
         //GUIaren konponente guztiei gehitu listenerra
-        
+        view.jButtonExpense.addActionListener(listener);
     }
 
     @Override
@@ -43,8 +43,11 @@ public class Controller implements ActionListener {
         //listenerrak entzun dezakeen eragiketa bakoitzeko. Konponenteek 'actionCommad' propietatea daukate
         switch (actionCommand) {
             case "GEHITU":
-
-
+                System.out.println("Aqui");
+                Expense expense =new Expense(view.jTextFieldDescription.getText(),Float.parseFloat(view.jTextFieldPrice.getText()),view.jTextFieldType.getText());
+                
+                Model.addExpense(expense);
+               break;
             default:
                 System.out.println("???");
 

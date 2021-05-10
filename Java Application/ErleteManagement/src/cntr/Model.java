@@ -27,7 +27,7 @@ public class Model {
 
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbd:mariadb://204.204.5.1:3306/erlete_db", "bosst", "bosst");
+            conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/erlete_db", "abde", "abde");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -35,16 +35,16 @@ public class Model {
 
     }
 
-    public void addExpense(Expense ex) {
-        String sql = "INSERT INTO Expense(Id_gastua,Description,Price,Type) VALUES(?,?,?,?)";
+    public static void addExpense(Expense ex) {
+        String sql = "INSERT INTO Expense(description,price,expense_type) VALUES(?,?,?)";
 
         
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1,ex.getId());
-            pstmt.setString(2,ex.getDescription());
-            pstmt.setFloat(3,ex.getPrice());
-            pstmt.setString(4,ex.getType());
+            
+            pstmt.setString(1,ex.getDescription());
+            pstmt.setFloat(2,ex.getPrice());
+            pstmt.setString(3,ex.getType());
 
              pstmt.executeUpdate();
 
@@ -72,7 +72,7 @@ public class Model {
         return Expenses;
     }
 
-    public ArrayList<ProductionFee> showProductionFee() {
+    public static ArrayList<ProductionFee> showProductionFee() {
         ArrayList<ProductionFee> ProductionFee = new ArrayList<>();
         String taula = "Production_fee";
         String sql = "SELECT * FROM " + taula;
@@ -90,7 +90,7 @@ public class Model {
         return ProductionFee;
     }
 
-    public void addProductionFee(ProductionFee p) {
+    public static void addProductionFee(ProductionFee p) {
         String sql = "INSERT INTO Production_fee(partner_DNI,month,year,total_price) VALUES(?,?,?,?)";
 
         
@@ -110,7 +110,7 @@ public class Model {
 
     }
 
-    public ArrayList<PartnershipFee> showPartnershipFee() {
+    public static ArrayList<PartnershipFee> showPartnershipFee() {
         ArrayList<PartnershipFee> PartnershipFee = new ArrayList<>();
         String taula = "Partnership_fee";
         String sql = "SELECT * FROM " + taula;

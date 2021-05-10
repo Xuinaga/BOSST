@@ -21,7 +21,13 @@ public class Expense {
         this.price = price;
         this.type = type;
     }
-
+    public Expense( String description, float price, String type) {
+        
+        this.description = description;
+        this.price = price;
+        this.type = type;
+    }
+    
     public int getId() {
         return id;
     }

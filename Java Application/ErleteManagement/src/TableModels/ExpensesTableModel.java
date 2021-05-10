@@ -21,20 +21,22 @@ public class ExpensesTableModel extends AbstractTableModel{
     public ExpensesTableModel() {
         Expenses = Model.showExpense();
     }
-    @Override
-    public int getRowCount() {
-        return rows.length;
-    }
-
+    
     @Override
     public int getColumnCount() {
-        return Expenses.size();
+        return rows.length;
     }
     
     @Override
     public String getColumnName(int col) {
         return rows[col];
     }
+    
+    @Override
+    public int getRowCount() {
+        return Expenses.size();
+    }
+
 
     public Object getValueAt(int row, int col) {
 
