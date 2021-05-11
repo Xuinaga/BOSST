@@ -23,7 +23,7 @@ CREATE table Partner(
     phone varchar(15),
     address varchar(100)
 )
-create table Partership_fee(
+create table Partnership_fee(
     partner_DNI varchar(15),
     year int,
     fee_charged boolean,
