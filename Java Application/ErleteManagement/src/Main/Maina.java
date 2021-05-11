@@ -6,8 +6,9 @@
 package Main;
 
 import cntr.Controller;
+import cntr.Menu;
 import cntr.Model;
-import cntr.View;
+import cntr.*;
 
 /**
  *
@@ -15,8 +16,8 @@ import cntr.View;
  */
 public class Maina {
     public static void main(String args[]) {
-        View view = View.viewaSortuBistaratu();
+        Menu menu = Menu.viewaSortuBistaratu();
         Model model = new Model();
-        Controller controller = new Controller(model, view);
+        Controller controller = new Controller(model, menu);
     }
 }

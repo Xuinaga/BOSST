@@ -127,4 +127,38 @@ public class Model {
         }
         return PartnershipFee;
     }
+    
+    public static void payPartnershipFee(String partner_DNI) {
+        String sql = "UPDATE partnership_fee SET fee_charged = 1 "
+                + "WHERE partner_DNI = ?"
+                + "AND fee_charged= 0";
+
+        try (Connection conn = connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, partner_DNI);
+           
+
+            // update 
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void unsuscribe(String dni) {
+        String sql = "DELETE FROM partnership_fee WHERE partner_DNI = ?";
+
+        try (Connection conn = connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, dni);
+            // execute the delete statement
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

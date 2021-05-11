@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import pkg1.Expense;
 import pkg1.PartnershipFee;
 import pkg1.ProductionFee;
@@ -22,19 +20,22 @@ public class Controller implements ActionListener {
     private ArrayList<PartnershipFee> PartnershipFee=new ArrayList<>();
     private ArrayList<ProductionFee> ProductionFee=new ArrayList<>();
     private Model model;
-    private View view;
+    private Menu menu;
+    private Members members = new Members();
 
-    public Controller(Model model, View view) {
+    public Controller(Model model, Menu menu) {
         this.model = model;
-        this.view = view;
+        this.menu = menu;
         anadirActionListener(this);
-        this.view.jTableExpenses.setModel(new ExpensesTableModel());
+        
 
     }
 
     private void anadirActionListener(ActionListener listener) {
         //GUIaren konponente guztiei gehitu listenerra
-        view.jButtonExpense.addActionListener(listener);
+//        members.jButtonExpense.addActionListener(listener);
+        members.jButtonCharge.addActionListener(listener);
+       menu.jButtonMembers.addActionListener(listener);
     }
 
     @Override
@@ -42,11 +43,38 @@ public class Controller implements ActionListener {
         String actionCommand = e.getActionCommand();
         //listenerrak entzun dezakeen eragiketa bakoitzeko. Konponenteek 'actionCommad' propietatea daukate
         switch (actionCommand) {
-            case "GEHITU":
-                System.out.println("Aqui");
-                Expense expense =new Expense(view.jTextFieldDescription.getText(),Float.parseFloat(view.jTextFieldPrice.getText()),view.jTextFieldType.getText());
+            case "Pay":
+                System.out.println("Charge fee (members)");
                 
-                Model.addExpense(expense);
+                try {
+            String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
+            System.out.println(dni);
+            Model.payPartnershipFee(dni);
+            
+        } catch (Exception z) {
+
+            JOptionPane.showMessageDialog(null, "Aukeratu bat, ezabatzeko", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+//                
+               break;
+               
+            case "Unsuscribe":
+                try {
+            String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
+            System.out.println(dni);
+            Model.unsuscribe(dni);
+            
+        } catch (Exception z) {
+
+            JOptionPane.showMessageDialog(null, "Aukeratu bat, ezabatzeko", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+                break;
+               
+                case "Members":
+                System.out.println("Boton members (menu)");
+                members.setVisible(true);
+                this.menu.setVisible(false);
+                
                break;
             default:
                 System.out.println("???");
