@@ -17,6 +17,7 @@ public class Members extends javax.swing.JFrame {
     /**
      * Creates new form View
      */
+    PartnershipFeeTableModel modelo;
     public Members() {
         initComponents();
     }
@@ -35,6 +36,7 @@ public class Members extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButtonCharge = new javax.swing.JButton();
         jButtonUnsuscribe = new javax.swing.JButton();
+        jButtonReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,25 +52,35 @@ public class Members extends javax.swing.JFrame {
         jButtonUnsuscribe.setText("Unsuscribe member");
         jButtonUnsuscribe.setActionCommand("Unsuscribe");
 
+        jButtonReturn.setText("Return to main menu");
+        jButtonReturn.setActionCommand("Return");
+        jButtonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReturnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jButtonCharge)
-                        .addGap(82, 82, 82)
-                        .addComponent(jButtonUnsuscribe)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(135, 135, 135)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonCharge)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonUnsuscribe)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonReturn))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,12 +92,17 @@ public class Members extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCharge)
-                    .addComponent(jButtonUnsuscribe))
+                    .addComponent(jButtonUnsuscribe)
+                    .addComponent(jButtonReturn))
                 .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReturnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReturnActionPerformed
 
     /**
      * @return 
@@ -94,6 +111,7 @@ public class Members extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButtonCharge;
+    public javax.swing.JButton jButtonReturn;
     public javax.swing.JButton jButtonUnsuscribe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -18,10 +18,14 @@ import pkg1.ProductionFee;
 
 /**
  *
- * @author hayar.abderrafia
+ * @author hayar.abderrafia. This class is where all principal methods are located
  */
 public class Model {
 
+   /**
+    * This method connects the program to the data base
+    * @return 
+    */
     private static Connection connect() {
         // SQLite connection string
 
@@ -34,7 +38,11 @@ public class Model {
         return conn;
 
     }
-
+    
+    /**
+     * This method adds an Expense to the Expense table
+     * @param ex . This parameter gives the information to add in our data base
+     */
     public static void addExpense(Expense ex) {
         String sql = "INSERT INTO Expense(description,price,expense_type) VALUES(?,?,?)";
 
@@ -53,6 +61,11 @@ public class Model {
             
         }
     }
+    
+    /**
+     * This method selects all the data from the table and saves it in an ArrayList
+     * @return 
+     */
 
     public static ArrayList<Expense> showExpense() {
         ArrayList<Expense> Expenses = new ArrayList<>();
@@ -71,7 +84,11 @@ public class Model {
         }
         return Expenses;
     }
-
+    
+    /**
+     * This method selects all the data from the table and saves it in an ArrayList
+     * @return 
+     */
     public static ArrayList<ProductionFee> showProductionFee() {
         ArrayList<ProductionFee> ProductionFee = new ArrayList<>();
         String taula = "Production_fee";
@@ -89,7 +106,11 @@ public class Model {
         }
         return ProductionFee;
     }
-
+    
+    /**
+     * This method adds new data into the table using the p parameter
+     * @param p .This parameter gives the information to add in our data base
+     */
     public static void addProductionFee(ProductionFee p) {
         String sql = "INSERT INTO Production_fee(partner_DNI,month,year,total_price) VALUES(?,?,?,?)";
 
@@ -109,7 +130,11 @@ public class Model {
         }
 
     }
-
+    
+    /**
+     * This method selects all the data from the table and saves it in an ArrayList
+     * @return 
+     */
     public static ArrayList<PartnershipFee> showPartnershipFee() {
         ArrayList<PartnershipFee> PartnershipFee = new ArrayList<>();
         String taula = "Partnership_fee";
@@ -128,6 +153,11 @@ public class Model {
         return PartnershipFee;
     }
     
+    
+    /**
+     * This method updates the table 
+     * @param partner_DNI 
+     *
     public static void payPartnershipFee(String partner_DNI) {
         String sql = "UPDATE partnership_fee SET fee_charged = 1 "
                 + "WHERE partner_DNI = ?"
