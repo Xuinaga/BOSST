@@ -30,6 +30,8 @@ public class Controller implements ActionListener {
     private Model model;
     private Menu menu;
     private Members members = new Members();
+    private Expenses expenses=new Expenses();
+    private NewExpense newExpense=new NewExpense();
 
     public Controller(Model model, Menu menu) {
         this.model = model;
@@ -45,11 +47,16 @@ public class Controller implements ActionListener {
 
     private void anadirActionListener(ActionListener listener) {
         //GUIaren konponente guztiei gehitu listenerra
-//        members.jButtonExpense.addActionListener(listener);
+//        
         members.jButtonCharge.addActionListener(listener);
         members.jButtonUnsuscribe.addActionListener(listener);
         members.jButtonReturn.addActionListener(listener);
         menu.jButtonMembers.addActionListener(listener);
+        menu.jButtonExpenses.addActionListener(listener);
+        expenses.jButtonNewExpense.addActionListener(listener);
+        expenses.jButtonBackE.addActionListener(listener);
+        newExpense.jButtonInsert.addActionListener(listener);
+        newExpense.jButtonBack.addActionListener(listener);
     }
 
     /**
@@ -100,6 +107,37 @@ public class Controller implements ActionListener {
                 this.menu.setVisible(false);
 
                 break;
+            case "Expenses":
+                System.out.println("Boton expenses (menu)");
+                expenses.setVisible(true);
+                this.menu.setVisible(false);
+
+                break;
+            case "NewExpense":
+                System.out.println("Boton newExpense (expenses)");
+                newExpense.setVisible(true);
+                this.expenses.setVisible(false);
+                
+                break;
+            case "Insert":
+                System.out.println("Boton Insert (newExpense)");
+                Expense newexpense=new Expense(newExpense.jTextAreaDescription.getText(),Float.parseFloat(newExpense.jTextFieldPrice.getText()),newExpense.jComboBoxType.getSelectedItem().toString());
+                Model.addExpense(newexpense);
+                JOptionPane.showMessageDialog(null, "Added succesfully ");
+                actualizar();
+                newExpense.setVisible(false);
+                expenses.setVisible(true);
+                
+                
+                break;
+            case "Back":
+                this.newExpense.setVisible(false);
+                expenses.setVisible(true);
+                break;
+            case "BackE":
+                this.expenses.setVisible(false);
+                menu.setVisible(true);
+                break;
             default:
                 System.out.println("???");
 
@@ -113,6 +151,7 @@ public class Controller implements ActionListener {
     */
    public void actualizar() {
         members.modelo = new PartnershipFeeTableModel();
+        expenses.jTableExpenses.setModel(new ExpensesTableModel());
         members.jTableMembers.setModel(members.modelo);
     }
 

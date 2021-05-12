@@ -11,7 +11,7 @@ import cntr.Model;
 import cntr.*;
 
 /**
- *
+ *This class is the main class which starts every class
  * @author hayar.abderrafia
  */
 public class Maina {

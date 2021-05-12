@@ -155,9 +155,9 @@ public class Model {
     
     
     /**
-     * This method updates the table 
-     * @param partner_DNI 
-     *
+     * This method updates the table changing the fee_charged to true
+     * @param partner_DNI . This is the parameter which says which partner that wants to change
+     */
     public static void payPartnershipFee(String partner_DNI) {
         String sql = "UPDATE partnership_fee SET fee_charged = 1 "
                 + "WHERE partner_DNI = ?"
@@ -176,6 +176,11 @@ public class Model {
             System.out.println(e.getMessage());
         }
     }
+    
+    /**
+     * This method deletes a member from the table PartnershipFee
+     * @param dni . This parameter is says who we want to delete
+     */
     public static void unsuscribe(String dni) {
         String sql = "DELETE FROM partnership_fee WHERE partner_DNI = ?";
 

@@ -29,6 +29,7 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButtonMembers = new javax.swing.JButton();
+        jButtonExpenses = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,6 +43,8 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jButtonExpenses.setText("Expenses");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,7 +56,9 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
-                        .addComponent(jButtonMembers)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonExpenses)
+                            .addComponent(jButtonMembers))))
                 .addContainerGap(208, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -63,7 +68,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(53, 53, 53)
                 .addComponent(jButtonMembers)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addComponent(jButtonExpenses)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,6 +96,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton jButtonExpenses;
     public javax.swing.JButton jButtonMembers;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
