@@ -5,6 +5,7 @@
  */
 package cntr;
 
+import java.lang.reflect.Member;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -91,7 +92,7 @@ public class Model {
      */
     public static ArrayList<ProductionFee> showProductionFee() {
         ArrayList<ProductionFee> ProductionFee = new ArrayList<>();
-        String taula = "Production_fee";
+        String taula = "production_fee";
         String sql = "SELECT * FROM " + taula;
 
         try (Connection conn = connect();
@@ -196,4 +197,46 @@ public class Model {
             System.out.println(e.getMessage());
         }
     }
+    
+    
+//    public static String memberName(String dni) {
+//        
+//        
+//        String sql = "SELECT name FROM partner INNER JOIN production_fee on partner.DNI = production_fee.partner_DNI WHERE production_fee.partner_DNI = ?";
+//        
+//        try (Connection conn = connect();
+//                Statement stmt = conn.createStatement();
+//                                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//
+//            while (rs.next()) {
+//                    pstmt.setString(1, dni);
+//                System.out.println(name);
+//            }
+//        } catch (Exception a) {
+//            System.out.println(a.getMessage());
+//        }
+//        return name;
+//    }
+    public static String memberName(String dni){
+                       String sql = "SELECT name,surname FROM partner INNER JOIN production_fee on partner.DNI = production_fee.partner_DNI WHERE production_fee.partner_DNI = ?";
+                       String name="";
+        
+        try (Connection conn = connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+            
+            // set the value
+            pstmt.setString(1,dni);
+            //
+            ResultSet rs  = pstmt.executeQuery();
+            
+            // loop through the result set
+            while (rs.next()) {
+                name=rs.getString("name")+" "+rs.getString("surname");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
+    
 }

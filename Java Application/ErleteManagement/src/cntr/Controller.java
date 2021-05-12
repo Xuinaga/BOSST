@@ -32,6 +32,7 @@ public class Controller implements ActionListener {
     private Members members = new Members();
     private Expenses expenses=new Expenses();
     private NewExpense newExpense=new NewExpense();
+    private MonthFee monthFee =new MonthFee();
 
     public Controller(Model model, Menu menu) {
         this.model = model;
@@ -57,6 +58,8 @@ public class Controller implements ActionListener {
         expenses.jButtonBackE.addActionListener(listener);
         newExpense.jButtonInsert.addActionListener(listener);
         newExpense.jButtonBack.addActionListener(listener);
+        menu.jButtonMonthFee.addActionListener(listener);
+        monthFee.jButtonSee.addActionListener(listener);
     }
 
     /**
@@ -137,6 +140,23 @@ public class Controller implements ActionListener {
             case "BackE":
                 this.expenses.setVisible(false);
                 menu.setVisible(true);
+                break;
+            case "monthFee":
+                this.menu.setVisible(false);
+                monthFee.setVisible(true);
+                ArrayList<ProductionFee> productionFee = Model.showProductionFee();
+                
+                for(ProductionFee p:productionFee){
+                    monthFee.jComboBoxDNI.addItem(p.getDNI());
+                }
+                
+                break;
+            case "SEE":
+                
+                String nameSurname=Model.memberName(monthFee.jComboBoxDNI.getSelectedItem().toString());
+                monthFee.jLabelName.setText(nameSurname);
+                
+                
                 break;
             default:
                 System.out.println("???");
