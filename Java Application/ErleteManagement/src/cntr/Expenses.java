@@ -9,7 +9,7 @@ import TableModels.*;
 
 
 /**
- *
+ *This is the expenses JFrame which lists them in a table. Here you can add new expense
  * @author hayar.abderrafia
  */
 public class Expenses extends javax.swing.JFrame {

@@ -6,7 +6,7 @@
 package cntr;
 
 /**
- *
+ * This is the JForm to add new expense
  * @author hayar.abderrafia
  */
 public class NewExpense extends javax.swing.JFrame {

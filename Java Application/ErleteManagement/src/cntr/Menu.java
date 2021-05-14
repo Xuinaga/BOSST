@@ -6,7 +6,7 @@
 package cntr;
 
 /**
- *
+ *This is the Menu JFrame which has three buttons to access to other JFrames
  * @author hayar.abderrafia
  */
 public class Menu extends javax.swing.JFrame {
@@ -90,7 +90,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMembersActionPerformed
 
     /**
-     * @param args the command line arguments
+     * 
+     * @return 
      */
     public static Menu viewaSortuBistaratu() {
         Menu m = new Menu();

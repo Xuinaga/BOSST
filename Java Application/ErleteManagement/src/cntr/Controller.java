@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 package cntr;
 
 import TableModels.ExpensesTableModel;
@@ -12,16 +10,20 @@ import TableModels.PartnershipFeeTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import pkg1.Expense;
+import pkg1.Partner;
 import pkg1.PartnershipFee;
 import pkg1.ProductionFee;
 
 /**
- * This class is going to control the buttons and frames 
+ * This class is going to control the buttons and frames
+ *
  * @author hayar.abderrafia
  */
-
 public class Controller implements ActionListener {
 
     private ArrayList<Expense> Expenses = new ArrayList<>();
@@ -30,9 +32,9 @@ public class Controller implements ActionListener {
     private Model model;
     private Menu menu;
     private Members members = new Members();
-    private Expenses expenses=new Expenses();
-    private NewExpense newExpense=new NewExpense();
-    private MonthFee monthFee =new MonthFee();
+    private Expenses expenses = new Expenses();
+    private NewExpense newExpense = new NewExpense();
+    private MonthFee monthFee = new MonthFee();
 
     public Controller(Model model, Menu menu) {
         this.model = model;
@@ -41,8 +43,9 @@ public class Controller implements ActionListener {
         actualizar();
 
     }
+
     /**
-     * 
+     *
      * @param listener . This is the listener of the application
      */
 
@@ -60,11 +63,13 @@ public class Controller implements ActionListener {
         newExpense.jButtonBack.addActionListener(listener);
         menu.jButtonMonthFee.addActionListener(listener);
         monthFee.jButtonSee.addActionListener(listener);
+        monthFee.jComboBoxDNI.addActionListener(listener);
+        monthFee.jComboBoxMonth.addActionListener(listener);
     }
 
     /**
-     * 
-     * @param e. This is the one which control the button options 
+     *
+     * @param e. This is the one which control the button options
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -120,18 +125,17 @@ public class Controller implements ActionListener {
                 System.out.println("Boton newExpense (expenses)");
                 newExpense.setVisible(true);
                 this.expenses.setVisible(false);
-                
+
                 break;
             case "Insert":
                 System.out.println("Boton Insert (newExpense)");
-                Expense newexpense=new Expense(newExpense.jTextAreaDescription.getText(),Float.parseFloat(newExpense.jTextFieldPrice.getText()),newExpense.jComboBoxType.getSelectedItem().toString());
+                Expense newexpense = new Expense(newExpense.jTextAreaDescription.getText(), Float.parseFloat(newExpense.jTextFieldPrice.getText()), newExpense.jComboBoxType.getSelectedItem().toString());
                 Model.addExpense(newexpense);
                 JOptionPane.showMessageDialog(null, "Added succesfully ");
                 actualizar();
                 newExpense.setVisible(false);
                 expenses.setVisible(true);
-                
-                
+
                 break;
             case "Back":
                 this.newExpense.setVisible(false);
@@ -144,18 +148,58 @@ public class Controller implements ActionListener {
             case "monthFee":
                 this.menu.setVisible(false);
                 monthFee.setVisible(true);
-                ArrayList<ProductionFee> productionFee = Model.showProductionFee();
-                
-                for(ProductionFee p:productionFee){
+                ArrayList<Partner> pr = Model.showPartnerPR();
+
+                for (Partner p : pr) {
                     monthFee.jComboBoxDNI.addItem(p.getDNI());
                 }
+
+                break;
+            
+
+            case "comboBoxChanged":
+                String nameSurname = Model.memberName(monthFee.jComboBoxDNI.getSelectedItem().toString());
+                monthFee.jLabelName.setText(nameSurname);
+
+               
+                break;
+            case "Calculate":
+                String p_dni = monthFee.jComboBoxDNI.getSelectedItem().toString();
+                String month = monthFee.jComboBoxMonth.getSelectedItem().toString();
+                String year =monthFee.jComboBoxYears.getSelectedItem().toString();
+                int yearInt=Integer.parseInt(year);
+                int monthInt = calculateInt(month);
+                double total=0;
+                ArrayList<Integer> quantity=Model.showPartnerMonthFee(p_dni, monthInt, yearInt);
+                System.out.println(quantity);
+                for(int q:quantity){
+                    total=total+q;
+                }
+                total=total*0.25;
+                
+                    monthFee.jLabelTotal.setText(total+"€");
                 
                 break;
-            case "SEE":
+            case "comboBoxChangedMonth":
+                 ArrayList<Date> d = Model.showDate();
+                ArrayList<String> years = new ArrayList<String>();
+
                 
-                String nameSurname=Model.memberName(monthFee.jComboBoxDNI.getSelectedItem().toString());
-                monthFee.jLabelName.setText(nameSurname);
+                for (Date ds : d) {
+
+                    String yeara = ds.toString();
+                    String y[] = yeara.split("-");
+                    years.add(y[0]);
+
+                }
+                Set<String> hashSet = new HashSet<String>(years);
+                years.clear();
+                years.addAll(hashSet);
+
                 
+                for (String s : years) {
+                    monthFee.jComboBoxYears.addItem(s);
+                }
                 
                 break;
             default:
@@ -164,15 +208,59 @@ public class Controller implements ActionListener {
         }
     }
 
-
-    
-   /**
-    * This method updates the current table
-    */
-   public void actualizar() {
+    /**
+     * This method updates the current table
+     */
+    public void actualizar() {
         members.modelo = new PartnershipFeeTableModel();
         expenses.jTableExpenses.setModel(new ExpensesTableModel());
         members.jTableMembers.setModel(members.modelo);
+    }
+
+    public int calculateInt(String month) {
+        int monthInt = 0;
+        switch (month) {
+            case "January":
+                monthInt = 01;
+                break;
+            case "February":
+                monthInt = 2;
+                break;
+            case "March":
+                monthInt = 3;
+                break;
+            case "April":
+                monthInt = 4;
+                break;
+            case "May":
+                monthInt = 5;
+                break;
+            case "June":
+                monthInt = 6;
+                break;
+            case "July":
+                monthInt = 7;
+                break;
+            case "August":
+                monthInt = 8;
+                break;
+            case "September":
+                monthInt = 9;
+                break;
+            case "October":
+                monthInt = 10;
+                break;
+            case "November":
+                monthInt = 11;
+                break;
+            case "December":
+                monthInt = 12;
+                break;
+            default:
+                break;
+
+        }
+        return monthInt;
     }
 
 }

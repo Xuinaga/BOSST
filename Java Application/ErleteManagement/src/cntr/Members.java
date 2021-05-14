@@ -9,7 +9,7 @@ import TableModels.*;
 
 
 /**
- *
+ *This is the members JFrame. Here you can charge the fee and delete a member from their partnership
  * @author hayar.abderrafia
  */
 public class Members extends javax.swing.JFrame {
