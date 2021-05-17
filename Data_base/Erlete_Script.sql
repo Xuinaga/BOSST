@@ -45,5 +45,13 @@ create table Room_booking(
     partner_DNI varchar(15),
     book_date date,    
     extracted_quantity int,
+    state boolean,
     CONSTRAINT fk_bookBazkideDNI FOREIGN KEY (partner_DNI) REFERENCES Partner(DNI)
+);
+create table booking_can(
+	id_booking int,
+	id_can int,
+	PRIMARY KEY(id_booking, id_can),
+	CONSTRAINT fk_book FOREIGN KEY (id_booking) REFERENCES room_booking(id_booking),
+	CONSTRAINT fk_book FOREIGN KEY (id_can) REFERENCES can(id_can)
 );
