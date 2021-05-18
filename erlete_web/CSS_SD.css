@@ -1,0 +1,156 @@
+.float_l { 
+	float: left ;
+}
+.float_r { 
+	float: right ;
+}
+
+nav a {
+	font-size:2vw;
+}
+nav a:hover{
+	background:rgba(245, 101, 4, 0.911);
+	color:white;
+}
+.navbar .dropdown.show a.dropdown-toggle { 
+	color: #f4511e !important;
+	background-color: #fff !important;
+	
+  }
+.navbar-nav li a:hover, .navbar-nav li.active a {
+	color: #f4511e !important;
+	background-color: #fff !important;
+  }
+
+/*
+a.dropdown-toggle{
+	background-color: rgba(245, 101, 4, 0.911) !important;
+  }*/
+
+#content {
+	padding:3vw;
+	line-height: 2.5vw;
+	text-align: justify;
+	font-size:1.5vw;
+}
+.table {
+	font-size:1vw;
+}
+#content h3, #content h4 {
+	text-align: center;
+	color:black;
+	font-weight: normal;
+	font-size:3vw;
+}
+#content h2 {
+	text-align: center;
+	color:black;
+	font-weight: normal;
+	font-size:4vw;
+}
+#click:hover {
+	background-color:green;
+}
+.Zentratu {
+	display: flex;              
+    flex-direction: column;     
+    justify-content: center;    
+    align-items: center;  
+}
+
+.altura {
+	clear:both;
+	height:40vw;
+}
+.altura p {
+	text-align: justify;
+}
+.testuaR{
+    height: 60%;
+    overflow-y: auto;
+    direction: ltr;
+}
+.testuaL{
+    height: 60%;
+    overflow-y: auto; 
+    direction:rtl;
+}
+.select:link {
+	text-decoration:none;
+}
+.select:hover {
+	transition:1s font-size;
+	font-size:1.2vw;
+}
+.carousel-inner img {
+	margin: auto;
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 500px;
+  }
+  #investigation li {
+  	padding:3vw;
+  }
+  #investigation li:hover {
+  	background: rgb(51, 102, 0,0.1);
+  	transition: 0.5s font-size;
+  	font-size:2.1vw;
+  }
+  body{
+	  background-color: rgb(247, 247, 215);
+  }
+  #contact_form { 
+	padding: 0; 
+	width: 410px; 
+	margin-bottom: 40px; 
+}
+
+#contact_form form { 
+	margin: 0px; 
+	padding: 0px; 
+}
+
+#contact_form form .input_field { 
+	width: 270px; 
+	padding: 5px; 
+	color: #333;  
+	background: #fff; 
+	border: 1px solid #dedede; 
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+#contact_form form label { 
+	display: block; 
+	width: 100px; 
+	margin-right: 12px; 
+	font-size: 12px; 
+}
+
+#contact_form form textarea { 
+	width: 398px; 
+	height: 200px; 
+	padding: 5px; 
+	color: #333;
+	background: #fff; 
+	border: 1px solid #dedede; 
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+#contact_form form .submit_btn { 
+	display: block; 
+	width: 80px; 
+	height: 25px; 
+	background:black;
+	color: #fff; 
+	font-size:13px;
+	border: none; 
+	margin: 10px 0px;
+}
+
+
+
