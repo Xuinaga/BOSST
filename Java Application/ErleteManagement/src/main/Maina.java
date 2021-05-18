@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+package main;
 
 import cntr.Controller;
 import cntr.Menu;
@@ -11,7 +11,7 @@ import cntr.Model;
 import cntr.*;
 
 /**
- *
+ *This class is the main class which starts every class
  * @author hayar.abderrafia
  */
 public class Maina {

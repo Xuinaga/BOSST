@@ -12,16 +12,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import pkg1.Expense;
+import pkg1.Partner;
 import pkg1.PartnershipFee;
 import pkg1.ProductionFee;
+import pkg1.RoomBooking;
 
 /**
- *
- * @author hayar.abderrafia
+ *This is the class which has every method 
+ * @author hayar.abderrafia. This class is where all principal methods are located
  */
 public class Model {
 
+   /**
+    * This method connects the program to the data base
+    * @return 
+    */
     private static Connection connect() {
         // SQLite connection string
 
@@ -34,7 +41,11 @@ public class Model {
         return conn;
 
     }
-
+    
+    /**
+     * This method adds an Expense to the Expense table
+     * @param ex . This parameter gives the information to add in our data base
+     */
     public static void addExpense(Expense ex) {
         String sql = "INSERT INTO Expense(description,price,expense_type) VALUES(?,?,?)";
 
@@ -53,6 +64,11 @@ public class Model {
             
         }
     }
+    
+    /**
+     * This method selects all the data from the table and saves it in an ArrayList
+     * @return 
+     */
 
     public static ArrayList<Expense> showExpense() {
         ArrayList<Expense> Expenses = new ArrayList<>();
@@ -71,25 +87,17 @@ public class Model {
         }
         return Expenses;
     }
-
-    public static ArrayList<ProductionFee> showProductionFee() {
-        ArrayList<ProductionFee> ProductionFee = new ArrayList<>();
-        String taula = "Production_fee";
-        String sql = "SELECT * FROM " + taula;
-
-        try (Connection conn = connect();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                ProductionFee f = new ProductionFee (rs.getString("partner_DNI"),rs.getString("month"),rs.getInt("year"),rs.getFloat("total_price"));
-                ProductionFee.add(f);
-            }
-        } catch (Exception a) {
-            System.out.println(a.getMessage());
-        }
-        return ProductionFee;
-    }
-
+    
+    /**
+     * This method selects all the data from the table and saves it in an ArrayList
+     * @return 
+     */
+    
+    
+    /**
+     * This method adds new data into the table using the p parameter
+     * @param p .This parameter gives the information to add in our data base
+     */
     public static void addProductionFee(ProductionFee p) {
         String sql = "INSERT INTO Production_fee(partner_DNI,month,year,total_price) VALUES(?,?,?,?)";
 
@@ -109,7 +117,11 @@ public class Model {
         }
 
     }
-
+    
+    /**
+     * This method selects all the data from the table and saves it in an ArrayList
+     * @return 
+     */
     public static ArrayList<PartnershipFee> showPartnershipFee() {
         ArrayList<PartnershipFee> PartnershipFee = new ArrayList<>();
         String taula = "Partnership_fee";
@@ -128,6 +140,11 @@ public class Model {
         return PartnershipFee;
     }
     
+    
+    /**
+     * This method updates the table changing the fee_charged to true
+     * @param partner_DNI . This is the parameter which says which partner that wants to change
+     */
     public static void payPartnershipFee(String partner_DNI) {
         String sql = "UPDATE partnership_fee SET fee_charged = 1 "
                 + "WHERE partner_DNI = ?"
@@ -146,6 +163,11 @@ public class Model {
             System.out.println(e.getMessage());
         }
     }
+    
+    /**
+     * This method deletes a member from the table PartnershipFee
+     * @param dni . This parameter is says who we want to delete
+     */
     public static void unsuscribe(String dni) {
         String sql = "DELETE FROM partnership_fee WHERE partner_DNI = ?";
 
@@ -160,5 +182,140 @@ public class Model {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    
+//    public static String memberName(String dni) {
+//        
+//        
+//        String sql = "SELECT name FROM partner INNER JOIN production_fee on partner.DNI = production_fee.partner_DNI WHERE production_fee.partner_DNI = ?";
+//        
+//        try (Connection conn = connect();
+//                Statement stmt = conn.createStatement();
+//                                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//
+//            while (rs.next()) {
+//                    pstmt.setString(1, dni);
+//                System.out.println(name);
+//            }
+//        } catch (Exception a) {
+//            System.out.println(a.getMessage());
+//        }
+//        return name;
+//    }
+    
+    /**
+     * This method selects the name and surname of the partner from the data base
+     * @param dni This parameter saves the DNI of the partner
+     * @return Returns the name of the partner which DNI is taken form the DNI parameter
+     */
+    
+    
+    /**
+     * This method selects every room booking 
+     * @return Returns an ArrayList of RoomBooking
+     */
+     public static ArrayList<RoomBooking> showRoomBooking() {
+        ArrayList<RoomBooking> roomBooking = new ArrayList<>();
+        String taula = "room_booking";
+        String sql = "SELECT * FROM " + taula ;
+
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                RoomBooking rb = new RoomBooking (rs.getInt("id_booking"),rs.getString("partner_DNI"),rs.getDate("book_date"),rs.getInt("extracted_quantity"));
+                roomBooking.add(rb);
+            }
+        } catch (Exception a) {
+            System.out.println(a.getMessage());
+        }
+        return roomBooking;
+    }
+    
+    public static ArrayList<Partner> showPartnerPR() {
+        ArrayList<Partner> pr = new ArrayList<>();
+        String taula = "room_booking";
+        String sql = "SELECT Partner_DNI, name, surname FROM " + taula + " INNER JOIN partner on room_booking.Partner_DNI = partner.DNI GROUP BY room_booking.Partner_DNI";
+
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Partner f = new Partner (rs.getString("partner_DNI"),rs.getString("name"), rs.getString("surname"));
+                pr.add(f);
+            }
+        } catch (Exception a) {
+            System.out.println(a.getMessage());
+        }
+        return pr;
+    }
+    public static String memberName(String dni){
+                       String sql = "SELECT name,surname FROM partner INNER JOIN production_fee on partner.DNI = production_fee.partner_DNI WHERE production_fee.partner_DNI = ?";
+                       String name="";
+        
+        try (Connection conn = connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+            
+            // set the value
+            pstmt.setString(1,dni);
+            //
+            ResultSet rs  = pstmt.executeQuery();
+            
+            // loop through the result set
+            while (rs.next()) {
+                name=rs.getString("name")+" "+rs.getString("surname");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
+    
+    public static ArrayList<Date> showDate(){
+        String sql = "SELECT book_date FROM room_booking ";
+                       
+        ArrayList<Date> dates = new ArrayList<Date>();
+        try (Connection conn = connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+          
+            ResultSet rs  = pstmt.executeQuery();
+            
+            
+            while (rs.next()) {
+                Date date=rs.getDate("book_date");
+                dates.add(date);
+                
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return dates;
+    }
+    
+    
+    public static ArrayList<Integer> showPartnerMonthFee(String dni,int month,int year){
+                       String sql = "SELECT extracted_quantity FROM room_booking WHERE partner_DNI = ? AND MONTH(book_date) = ? AND YEAR(book_date) = ?";
+                       ArrayList<Integer> prices=new ArrayList<Integer>();
+        
+        try (Connection conn = connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+            
+            
+            pstmt.setString(1,dni);
+            pstmt.setInt(2,month);
+            pstmt.setInt(3, year);
+            
+            ResultSet rs  = pstmt.executeQuery();
+            
+            // loop through the result set
+            while (rs.next()) {
+                int price=rs.getInt("extracted_quantity");
+                prices.add(price);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return prices;
     }
 }

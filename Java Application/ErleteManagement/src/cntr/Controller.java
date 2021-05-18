@@ -6,38 +6,71 @@
 package cntr;
 
 import TableModels.ExpensesTableModel;
+import TableModels.PartnershipFeeTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import pkg1.Expense;
+import pkg1.Partner;
 import pkg1.PartnershipFee;
 import pkg1.ProductionFee;
 
+/**
+ * This class is going to control the buttons and frames
+ *
+ * @author hayar.abderrafia
+ */
 public class Controller implements ActionListener {
 
-    private ArrayList <Expense> Expenses=new ArrayList<>();
-    private ArrayList<PartnershipFee> PartnershipFee=new ArrayList<>();
-    private ArrayList<ProductionFee> ProductionFee=new ArrayList<>();
+    private ArrayList<Expense> Expenses = new ArrayList<>();
+    private ArrayList<PartnershipFee> PartnershipFee = new ArrayList<>();
+    private ArrayList<ProductionFee> ProductionFee = new ArrayList<>();
     private Model model;
     private Menu menu;
     private Members members = new Members();
+    private Expenses expenses = new Expenses();
+    private NewExpense newExpense = new NewExpense();
+    private MonthFee monthFee = new MonthFee();
 
     public Controller(Model model, Menu menu) {
         this.model = model;
         this.menu = menu;
         anadirActionListener(this);
-        
+        actualizar();
 
     }
+
+    /**
+     *
+     * @param listener . This is the listener of the application
+     */
 
     private void anadirActionListener(ActionListener listener) {
         //GUIaren konponente guztiei gehitu listenerra
-//        members.jButtonExpense.addActionListener(listener);
+//        
         members.jButtonCharge.addActionListener(listener);
-       menu.jButtonMembers.addActionListener(listener);
+        members.jButtonUnsuscribe.addActionListener(listener);
+        members.jButtonReturn.addActionListener(listener);
+        menu.jButtonMembers.addActionListener(listener);
+        menu.jButtonExpenses.addActionListener(listener);
+        expenses.jButtonNewExpense.addActionListener(listener);
+        expenses.jButtonBackE.addActionListener(listener);
+        newExpense.jButtonInsert.addActionListener(listener);
+        newExpense.jButtonBack.addActionListener(listener);
+        menu.jButtonMonthFee.addActionListener(listener);
+        monthFee.jButtonSee.addActionListener(listener);
+        monthFee.jComboBoxDNI.addActionListener(listener);
+        monthFee.jComboBoxMonth.addActionListener(listener);
     }
 
+    /**
+     *
+     * @param e. This is the one which control the button options
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -45,46 +78,189 @@ public class Controller implements ActionListener {
         switch (actionCommand) {
             case "Pay":
                 System.out.println("Charge fee (members)");
-                
-                try {
-            String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
-            System.out.println(dni);
-            Model.payPartnershipFee(dni);
-            
-        } catch (Exception z) {
 
-            JOptionPane.showMessageDialog(null, "Aukeratu bat, ezabatzeko", "Error", JOptionPane.WARNING_MESSAGE);
-        }
+                try {
+                    String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
+                    System.out.println(dni);
+                    Model.payPartnershipFee(dni);
+                    actualizar();
+                } catch (Exception z) {
+
+                    JOptionPane.showMessageDialog(null, "You have to select one", "Error", JOptionPane.ERROR_MESSAGE);
+                }
 //                
-               break;
-               
+                break;
+
             case "Unsuscribe":
                 try {
-            String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
-            System.out.println(dni);
-            Model.unsuscribe(dni);
-            
-        } catch (Exception z) {
+                String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
+                System.out.println(dni);
+                Model.unsuscribe(dni);
+                actualizar();
 
-            JOptionPane.showMessageDialog(null, "Aukeratu bat, ezabatzeko", "Error", JOptionPane.WARNING_MESSAGE);
-        }
+            } catch (Exception z) {
+
+                JOptionPane.showMessageDialog(null, "You have to select one", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            break;
+
+            case "Return":
+                this.members.setVisible(false);
+                menu.setVisible(true);
                 break;
-               
-                case "Members":
+
+            case "Members":
                 System.out.println("Boton members (menu)");
                 members.setVisible(true);
                 this.menu.setVisible(false);
+
+                break;
+            case "Expenses":
+                System.out.println("Boton expenses (menu)");
+                expenses.setVisible(true);
+                this.menu.setVisible(false);
+
+                break;
+            case "NewExpense":
+                System.out.println("Boton newExpense (expenses)");
+                newExpense.setVisible(true);
+                this.expenses.setVisible(false);
+
+                break;
+            case "Insert":
+                System.out.println("Boton Insert (newExpense)");
+                Expense newexpense = new Expense(newExpense.jTextAreaDescription.getText(), Float.parseFloat(newExpense.jTextFieldPrice.getText()), newExpense.jComboBoxType.getSelectedItem().toString());
+                Model.addExpense(newexpense);
+                JOptionPane.showMessageDialog(null, "Added succesfully ");
+                actualizar();
+                newExpense.setVisible(false);
+                expenses.setVisible(true);
+
+                break;
+            case "Back":
+                this.newExpense.setVisible(false);
+                expenses.setVisible(true);
+                break;
+            case "BackE":
+                this.expenses.setVisible(false);
+                menu.setVisible(true);
+                break;
+            case "monthFee":
+                this.menu.setVisible(false);
+                monthFee.setVisible(true);
+                ArrayList<Partner> pr = Model.showPartnerPR();
+
+                for (Partner p : pr) {
+                    monthFee.jComboBoxDNI.addItem(p.getDNI());
+                }
+
+                break;
+            
+
+            case "comboBoxChanged":
+                String nameSurname = Model.memberName(monthFee.jComboBoxDNI.getSelectedItem().toString());
+                monthFee.jLabelName.setText(nameSurname);
+
+               
+                break;
+            case "Calculate":
+                String p_dni = monthFee.jComboBoxDNI.getSelectedItem().toString();
+                String month = monthFee.jComboBoxMonth.getSelectedItem().toString();
+                String year =monthFee.jComboBoxYears.getSelectedItem().toString();
+                int yearInt=Integer.parseInt(year);
+                int monthInt = calculateInt(month);
+                double total=0;
+                ArrayList<Integer> quantity=Model.showPartnerMonthFee(p_dni, monthInt, yearInt);
+                System.out.println(quantity);
+                for(int q:quantity){
+                    total=total+q;
+                }
+                total=total*0.25;
                 
-               break;
+                    monthFee.jLabelTotal.setText(total+"€");
+                
+                break;
+            case "comboBoxChangedMonth":
+                 ArrayList<Date> d = Model.showDate();
+                ArrayList<String> years = new ArrayList<String>();
+
+                
+                for (Date ds : d) {
+
+                    String yeara = ds.toString();
+                    String y[] = yeara.split("-");
+                    years.add(y[0]);
+
+                }
+                Set<String> hashSet = new HashSet<String>(years);
+                years.clear();
+                years.addAll(hashSet);
+
+                
+                for (String s : years) {
+                    monthFee.jComboBoxYears.addItem(s);
+                }
+                
+                break;
             default:
                 System.out.println("???");
 
         }
     }
 
-   
+    /**
+     * This method updates the current table
+     */
+    public void actualizar() {
+        members.modelo = new PartnershipFeeTableModel();
+        expenses.jTableExpenses.setModel(new ExpensesTableModel());
+        members.jTableMembers.setModel(members.modelo);
+    }
 
-    
-   
+    public int calculateInt(String month) {
+        int monthInt = 0;
+        switch (month) {
+            case "January":
+                monthInt = 01;
+                break;
+            case "February":
+                monthInt = 2;
+                break;
+            case "March":
+                monthInt = 3;
+                break;
+            case "April":
+                monthInt = 4;
+                break;
+            case "May":
+                monthInt = 5;
+                break;
+            case "June":
+                monthInt = 6;
+                break;
+            case "July":
+                monthInt = 7;
+                break;
+            case "August":
+                monthInt = 8;
+                break;
+            case "September":
+                monthInt = 9;
+                break;
+            case "October":
+                monthInt = 10;
+                break;
+            case "November":
+                monthInt = 11;
+                break;
+            case "December":
+                monthInt = 12;
+                break;
+            default:
+                break;
+
+        }
+        return monthInt;
+    }
 
 }
