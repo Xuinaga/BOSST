@@ -98,7 +98,7 @@ public class Model {
      * This method adds new data into the table using the p parameter
      * @param p .This parameter gives the information to add in our data base
      */
-    public static void addProductionFee(ProductionFee p) {
+    public static int addProductionFee(ProductionFee p) {
         String sql = "INSERT INTO Production_fee(partner_DNI,month,year,total_price) VALUES(?,?,?,?)";
 
         
@@ -112,10 +112,11 @@ public class Model {
              pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            
+            return 1062;
             
         }
-
+        return 1;
     }
     
     /**
@@ -318,4 +319,6 @@ public class Model {
         }
         return prices;
     }
+    
+    
 }

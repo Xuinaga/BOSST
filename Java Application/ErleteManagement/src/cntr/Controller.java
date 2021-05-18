@@ -7,6 +7,7 @@ package cntr;
 
 import TableModels.ExpensesTableModel;
 import TableModels.PartnershipFeeTableModel;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ public class Controller implements ActionListener {
      *
      * @param listener . This is the listener of the application
      */
-
     private void anadirActionListener(ActionListener listener) {
         //GUIaren konponente guztiei gehitu listenerra
 //        
@@ -65,6 +65,8 @@ public class Controller implements ActionListener {
         monthFee.jButtonSee.addActionListener(listener);
         monthFee.jComboBoxDNI.addActionListener(listener);
         monthFee.jComboBoxMonth.addActionListener(listener);
+        monthFee.jButtonChargeFee.addActionListener(listener);
+        monthFee.jComboBoxYears.addActionListener(listener);
     }
 
     /**
@@ -155,36 +157,41 @@ public class Controller implements ActionListener {
                 }
 
                 break;
-            
 
             case "comboBoxChanged":
-                String nameSurname = Model.memberName(monthFee.jComboBoxDNI.getSelectedItem().toString());
-                monthFee.jLabelName.setText(nameSurname);
+                ArrayList<Partner> p=Model.showPartnerPR();
+                for (Partner part : p) {
+                    if(monthFee.jComboBoxDNI.getSelectedItem().toString().equals(part.getDNI()))
+                    monthFee.jLabelName.setText(part.getName()+" "+part.getSurname());
+                }
 
-               
+                break;
+            case "comboBoxChangedYears":
+                monthFee.jLabelTotal.setText("");
                 break;
             case "Calculate":
                 String p_dni = monthFee.jComboBoxDNI.getSelectedItem().toString();
                 String month = monthFee.jComboBoxMonth.getSelectedItem().toString();
-                String year =monthFee.jComboBoxYears.getSelectedItem().toString();
-                int yearInt=Integer.parseInt(year);
+                String year = monthFee.jComboBoxYears.getSelectedItem().toString();
+                int yearInt = Integer.parseInt(year);
                 int monthInt = calculateInt(month);
-                double total=0;
-                ArrayList<Integer> quantity=Model.showPartnerMonthFee(p_dni, monthInt, yearInt);
+                double total = 0;
+                ArrayList<Integer> quantity = Model.showPartnerMonthFee(p_dni, monthInt, yearInt);
                 System.out.println(quantity);
-                for(int q:quantity){
-                    total=total+q;
+                for (int q : quantity) {
+                    total = total + q;
                 }
-                total=total*0.25;
-                
-                    monthFee.jLabelTotal.setText(total+"€");
-                
+                total = total * 0.25;
+
+                monthFee.jLabelTotal.setText(total + " €");
+
                 break;
             case "comboBoxChangedMonth":
-                 ArrayList<Date> d = Model.showDate();
-                ArrayList<String> years = new ArrayList<String>();
-
                 
+                ArrayList<Date> d = Model.showDate();
+                ArrayList<String> years = new ArrayList<String>();
+                monthFee.jComboBoxYears.removeAllItems();
+                monthFee.jLabelTotal.setText("");
                 for (Date ds : d) {
 
                     String yeara = ds.toString();
@@ -196,12 +203,28 @@ public class Controller implements ActionListener {
                 years.clear();
                 years.addAll(hashSet);
 
-                
                 for (String s : years) {
                     monthFee.jComboBoxYears.addItem(s);
                 }
-                
+
                 break;
+            case "Charge":
+                 String[] tot;
+                tot = monthFee.jLabelTotal.getText().split(" ");
+                ProductionFee prod = new ProductionFee(monthFee.jComboBoxDNI.getSelectedItem().toString(), monthFee.jComboBoxMonth.getSelectedItem().toString(), Integer.parseInt(monthFee.jComboBoxYears.getSelectedItem().toString()), Float.parseFloat(tot[0]));
+               
+          
+                if (Model.addProductionFee(prod)==1062){
+                    JOptionPane.showMessageDialog(null, "This is already charged",
+                        "Hey!", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Charged succesfully");
+                }
+                
+
+
+            break;
+
             default:
                 System.out.println("???");
 
