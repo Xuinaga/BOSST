@@ -5,6 +5,8 @@
  */
 package cntr;
 
+import javax.swing.ImageIcon;
+
 /**
  *This is the Menu JFrame which has three buttons to access to other JFrames
  * @author hayar.abderrafia
@@ -16,6 +18,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/beekeeper.png")).getImage());
     }
 
     /**
@@ -33,6 +36,8 @@ public class Menu extends javax.swing.JFrame {
         jButtonMonthFee = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Erlete Management");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Erlete management");

@@ -7,7 +7,6 @@ package cntr;
 
 import TableModels.ExpensesTableModel;
 import TableModels.PartnershipFeeTableModel;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -152,45 +151,26 @@ public class Controller implements ActionListener {
                 monthFee.setVisible(true);
                 ArrayList<Partner> pr = Model.showPartnerPR();
 
-                for (Partner p : pr) {
-                    monthFee.jComboBoxDNI.addItem(p.getDNI());
-                }
-
-                break;
-
-            case "comboBoxChanged":
-                ArrayList<Partner> p=Model.showPartnerPR();
-                for (Partner part : p) {
-                    if(monthFee.jComboBoxDNI.getSelectedItem().toString().equals(part.getDNI()))
-                    monthFee.jLabelName.setText(part.getName()+" "+part.getSurname());
-                }
-
-                break;
-            case "comboBoxChangedYears":
-                monthFee.jLabelTotal.setText("");
-                break;
-            case "Calculate":
-                String p_dni = monthFee.jComboBoxDNI.getSelectedItem().toString();
-                String month = monthFee.jComboBoxMonth.getSelectedItem().toString();
-                String year = monthFee.jComboBoxYears.getSelectedItem().toString();
-                int yearInt = Integer.parseInt(year);
-                int monthInt = calculateInt(month);
-                double total = 0;
-                ArrayList<Integer> quantity = Model.showPartnerMonthFee(p_dni, monthInt, yearInt);
-                System.out.println(quantity);
-                for (int q : quantity) {
-                    total = total + q;
-                }
-                total = total * 0.25;
-
-                monthFee.jLabelTotal.setText(total + " €");
+//                for (Partner p : pr) {
+//                    monthFee.jComboBoxDNI.addItem(p.getDNI());
+//                }
 
                 break;
             case "comboBoxChangedMonth":
-                
-                ArrayList<Date> d = Model.showDate();
+                int mnth=calculateInt(monthFee.jComboBoxMonth.getSelectedItem().toString());
+                ArrayList<Date> d = Model.showDate(mnth);
                 ArrayList<String> years = new ArrayList<String>();
+                String tmp = monthFee.jComboBoxYears.getItemAt(0);
                 monthFee.jComboBoxYears.removeAllItems();
+                monthFee.jComboBoxYears.addItem(tmp);
+                
+                String sas = monthFee.jComboBoxDNI.getItemAt(0);
+                monthFee.jComboBoxDNI.removeAllItems();
+                monthFee.jComboBoxDNI.addItem(sas);
+                
+                
+      
+                monthFee.jLabelName.setText("");
                 monthFee.jLabelTotal.setText("");
                 for (Date ds : d) {
 
@@ -206,8 +186,64 @@ public class Controller implements ActionListener {
                 for (String s : years) {
                     monthFee.jComboBoxYears.addItem(s);
                 }
+                
+                
+                    
+
+                
+                break;
+            
+            case "comboBoxChangedYears":
+                monthFee.jLabelTotal.setText("");
+                String saas = monthFee.jComboBoxDNI.getItemAt(0);
+                monthFee.jComboBoxDNI.removeAllItems();
+                monthFee.jComboBoxDNI.addItem(saas);
+                try {
+                    int mes =calculateInt(monthFee.jComboBoxMonth.getSelectedItem().toString());
+                int año =Integer.parseInt(monthFee.jComboBoxYears.getSelectedItem().toString());
+                System.out.println(mes);
+                ArrayList<String> DNIs=Model.showDNIMonth(mes,año);
+                
+                for(String dnis :DNIs){
+                    monthFee.jComboBoxDNI.addItem(dnis);
+                }
+                } catch (Exception as) {
+                }
+                
+             
+                break;
+            case "comboBoxChanged":
+                try {
+                ArrayList<Partner> p=Model.showPartnerPR();
+                for (Partner part : p) {
+                    if(monthFee.jComboBoxDNI.getSelectedItem().toString().equals(part.getDNI()))
+                    monthFee.jLabelName.setText(part.getName()+" "+part.getSurname());
+                }
+            } catch (Exception asd) {
+            }
+                
 
                 break;
+            case "Calculate":
+                String p_dni = monthFee.jComboBoxDNI.getSelectedItem().toString();
+                String month="";
+            month = monthFee.jComboBoxMonth.getSelectedItem().toString();
+                String year = monthFee.jComboBoxYears.getSelectedItem().toString();
+                int yearInt = Integer.parseInt(year);
+                int monthInt = calculateInt(month);
+                System.out.println(monthInt);
+                double total = 0;
+                ArrayList<Integer> quantity = Model.showPartnerMonthFee(p_dni, monthInt, yearInt);
+                System.out.println(quantity);
+                for (int q : quantity) {
+                    total = total + q;
+                }
+                total = total * 0.25;
+
+                monthFee.jLabelTotal.setText(total + " €");
+
+                break;
+            
             case "Charge":
                  String[] tot;
                 tot = monthFee.jLabelTotal.getText().split(" ");
@@ -244,7 +280,7 @@ public class Controller implements ActionListener {
         int monthInt = 0;
         switch (month) {
             case "January":
-                monthInt = 01;
+                monthInt = 1;
                 break;
             case "February":
                 monthInt = 2;
