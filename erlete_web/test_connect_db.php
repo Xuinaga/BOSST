@@ -1,8 +1,8 @@
 <?php
 
-$servername = "10.2.1.111:3306";
-$username = "bosst";
-$password = "bosst";
+$servername = "localhost";
+$username = "root";
+$password = "";
 $dbname = "erlete_db";
 
 
@@ -10,10 +10,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 function ConnectDataBase()
 		{
-			$servername = "10.2.1.111:3306";
-			$username = "bosst";
-			$password = "bosst";
-			$dbname = "erlete_db";
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "erlete_db";
 
 
 		$conn = new mysqli($servername, $username, $password, $dbname);

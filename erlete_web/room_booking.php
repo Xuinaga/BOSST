@@ -90,9 +90,9 @@
 							
 							$booking = new Booking(
 								'erlete_db',
-								'10.2.1.111:3306',
-								'bosst',
-								'bosst'
+								'localhost',
+								'root',
+								''
 							);
 							
 							$bookableCell = new BookableCell($booking);

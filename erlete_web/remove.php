@@ -2,9 +2,9 @@
 	include 'test_connect_db.php';
 	$id=$_POST['id'];
 	
-	$servername = "10.2.1.111:3306";
-	$username = "bosst";
-	$password = "bosst";
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
 	$dbname = "erlete_db";
 
 
