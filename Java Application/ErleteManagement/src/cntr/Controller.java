@@ -120,7 +120,7 @@ public class Controller implements ActionListener {
                 System.out.println("Boton expenses (menu)");
                 expenses.setVisible(true);
                 this.menu.setVisible(false);
-
+                
                 break;
             case "NewExpense":
                 System.out.println("Boton newExpense (expenses)");
@@ -186,10 +186,6 @@ public class Controller implements ActionListener {
                 for (String s : years) {
                     monthFee.jComboBoxYears.addItem(s);
                 }
-                
-                
-                    
-
                 
                 break;
             

@@ -34,10 +34,11 @@ public class Model {
      */
     private static Connection connect() {
         // SQLite connection string
-
+        
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/erlete_db", "abde", "abde");
+//            conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/erlete_db", "abde", "abde");
+            conn = DriverManager.getConnection("jdbc:mariadb://172.16.0.111:3306/erlete_db", "root", "");
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -50,8 +51,9 @@ public class Model {
      * This method adds an Expense to the Expense table
      *
      * @param ex . This parameter gives the information to add in our data base
+     * @return 
      */
-    public static void addExpense(Expense ex) {
+    public static int addExpense(Expense ex) {
         String sql = "INSERT INTO Expense(description,price,expense_type) VALUES(?,?,?)";
 
         try (Connection conn = connect();
@@ -62,10 +64,10 @@ public class Model {
             pstmt.setString(3, ex.getType());
 
             pstmt.executeUpdate();
-
+            return 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-
+            return 0;
         }
     }
 
@@ -76,6 +78,7 @@ public class Model {
      * @return
      */
     public static ArrayList<Expense> showExpense() {
+        int contEx=0;
         ArrayList<Expense> Expenses = new ArrayList<>();
         String taula = "Expense";
         String sql = "SELECT * FROM " + taula;
@@ -86,10 +89,12 @@ public class Model {
             while (rs.next()) {
                 Expense e = new Expense(rs.getInt("id_expense"), rs.getString("description"), rs.getFloat("price"), rs.getString("expense_type"));
                 Expenses.add(e);
+                contEx=+1;
             }
         } catch (Exception a) {
             System.out.println(a.getMessage());
         }
+        System.out.println(contEx);
         return Expenses;
     }
 
@@ -126,6 +131,7 @@ public class Model {
      */
     public static ArrayList<PartnershipFee> showPartnershipFee() {
         ArrayList<PartnershipFee> PartnershipFee = new ArrayList<>();
+        
         String taula = "Partnership_fee";
         String sql = "SELECT * FROM " + taula;
 
@@ -135,10 +141,12 @@ public class Model {
             while (rs.next()) {
                 PartnershipFee p = new PartnershipFee(rs.getString("partner_DNI"), rs.getInt("year"), rs.getBoolean("fee_charged"));
                 PartnershipFee.add(p);
+                      
             }
         } catch (Exception a) {
             System.out.println(a.getMessage());
         }
+        
         return PartnershipFee;
     }
 
@@ -171,7 +179,7 @@ public class Model {
      *
      * @param dni . This parameter is says who we want to delete
      */
-    public static void unsuscribe(String dni) {
+    public static int unsuscribe(String dni) {
         String sql = "DELETE FROM partnership_fee WHERE partner_DNI = ?";
 
         try (Connection conn = connect();
@@ -181,9 +189,10 @@ public class Model {
             pstmt.setString(1, dni);
             // execute the delete statement
             pstmt.executeUpdate();
-
+            return 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return 0;
         }
     }
 
