@@ -30,29 +30,50 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButtonMembers = new javax.swing.JButton();
         jButtonExpenses = new javax.swing.JButton();
         jButtonMonthFee = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Erlete Management");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setBackground(new java.awt.Color(153, 153, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocation(new java.awt.Point(300, 200));
+        setType(java.awt.Window.Type.POPUP);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Erlete management");
-
-        jButtonMembers.setText("Members");
+        jButtonMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/members-featured_opt.png"))); // NOI18N
+        jButtonMembers.setActionCommand("Members");
         jButtonMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMembersActionPerformed(evt);
             }
         });
 
-        jButtonExpenses.setText("Expenses");
+        jButtonExpenses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/unnamed_opt (1).jpg"))); // NOI18N
+        jButtonExpenses.setActionCommand("Expenses");
+        jButtonExpenses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExpensesActionPerformed(evt);
+            }
+        });
 
-        jButtonMonthFee.setText("Month Fee");
+        jButtonMonthFee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/2_(4)_opt.jpg"))); // NOI18N
         jButtonMonthFee.setActionCommand("monthFee");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/goiburua1_opt (3).jpg"))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        jLabel1.setText("Partnership fee");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        jLabel2.setText("Expenses");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
+        jLabel4.setText("Prodution Fee");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,28 +82,46 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addComponent(jLabel1))
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonExpenses)
-                            .addComponent(jButtonMembers)
-                            .addComponent(jButtonMonthFee))))
-                .addContainerGap(208, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jButtonMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel1)))
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jButtonMonthFee, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonExpenses, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel2)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addGap(53, 53, 53)
-                .addComponent(jButtonMembers)
-                .addGap(29, 29, 29)
-                .addComponent(jButtonMonthFee)
-                .addGap(34, 34, 34)
-                .addComponent(jButtonExpenses)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonExpenses, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButtonMembers, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonMonthFee, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,6 +132,10 @@ public class Menu extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButtonMembersActionPerformed
+
+    private void jButtonExpensesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExpensesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonExpensesActionPerformed
 
     /**
      * 
@@ -113,5 +156,8 @@ public class Menu extends javax.swing.JFrame {
     public javax.swing.JButton jButtonMembers;
     public javax.swing.JButton jButtonMonthFee;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

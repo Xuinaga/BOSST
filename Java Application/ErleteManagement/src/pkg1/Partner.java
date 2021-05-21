@@ -13,17 +13,20 @@ public class Partner {
     private String DNI;
     private String name;
     private String surname;
+    private boolean active;
     
 /**
  * This is the constructor to create a partner
  * @param DNI. This parameter saves the DNI of the partner
  * @param name. This parameter saves the name of the partner
  * @param surname. This parameter saves the surname of the partner
+ * @param active
  */
-    public Partner(String DNI, String name, String surname) {
+    public Partner(String DNI, String name, String surname, boolean active) {
         this.DNI = DNI;
         this.name = name;
         this.surname = surname;
+        this.active = active;
     }
     
     /**
@@ -73,14 +76,16 @@ public class Partner {
     public void setSurname(String surname) {
         this.surname = surname;
     }
-    
-   /**
-    * This is the toString method
-    * @return 
-    */ 
-   @Override
-    public String toString() {
-        return "Partner{" + "DNI=" + DNI + ", name=" + name + ", surname=" + surname + '}';
+
+    public boolean isActive() {
+        return active;
     }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    
+
     
 }

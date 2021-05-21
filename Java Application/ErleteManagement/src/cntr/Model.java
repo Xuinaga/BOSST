@@ -38,7 +38,7 @@ public class Model {
         Connection conn = null;
         try {
 //            conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/erlete_db", "abde", "abde");
-            conn = DriverManager.getConnection("jdbc:mariadb://172.16.0.111:3306/erlete_db", "root", "");
+            conn = DriverManager.getConnection("jdbc:mariadb://192.168.65.222:3306/erlete_db", "dios", "dios");
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -124,8 +124,6 @@ public class Model {
     }
 
     /**
-     * This method selects all the data from the table and saves it in an
-     * ArrayList
      *
      * @return
      */
@@ -148,6 +146,26 @@ public class Model {
         }
         
         return PartnershipFee;
+    }
+    
+    public static ArrayList<Partner> showPartners() {
+        ArrayList<Partner> Partners = new ArrayList<>();
+       
+        String sql = "SELECT DNI,name,surname,active FROM partner WHERE active=1";
+
+        try (Connection conn = connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Partner p = new Partner(rs.getString("DNI"), rs.getString("name"), rs.getString("surname"),rs.getBoolean("active"));
+                Partners.add(p);
+                      
+            }
+        } catch (Exception a) {
+            System.out.println(a.getMessage());
+        }
+        
+        return Partners;
     }
 
     /**
@@ -175,11 +193,11 @@ public class Model {
     }
 
     /**
-     * This method deletes a member from the table PartnershipFee
+     * This method deletes a member from the table partnership_fee
      *
      * @param dni . This parameter is says who we want to delete
      */
-    public static int unsuscribe(String dni) {
+    public static int unsuscribePF(String dni) {
         String sql = "DELETE FROM partnership_fee WHERE partner_DNI = ?";
 
         try (Connection conn = connect();
@@ -195,6 +213,25 @@ public class Model {
             return 0;
         }
     }
+    
+    public static void unsuscribe(String dni) {
+        String sql = "UPDATE partner SET active=0 WHERE DNI= ?";
+
+        try (Connection conn = connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, dni);
+            // execute the delete statement
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            
+        }
+    }
+    
+   
 
 //    public static String memberName(String dni) {
 //        
@@ -248,13 +285,13 @@ public class Model {
     public static ArrayList<Partner> showPartnerPR() {
         ArrayList<Partner> pr = new ArrayList<>();
         String taula = "room_booking";
-        String sql = "SELECT Partner_DNI, name, surname FROM " + taula + " INNER JOIN partner on room_booking.Partner_DNI = partner.DNI GROUP BY room_booking.Partner_DNI";
+        String sql = "SELECT Partner_DNI, name, surname,active FROM " + taula + " INNER JOIN partner on room_booking.Partner_DNI = partner.DNI GROUP BY room_booking.Partner_DNI";
 
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                Partner f = new Partner(rs.getString("partner_DNI"), rs.getString("name"), rs.getString("surname"));
+                Partner f = new Partner(rs.getString("partner_DNI"), rs.getString("name"), rs.getString("surname"), rs.getBoolean("active"));
                 pr.add(f);
             }
         } catch (Exception a) {

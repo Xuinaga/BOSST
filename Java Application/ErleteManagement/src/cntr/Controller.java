@@ -6,6 +6,7 @@
 package cntr;
 
 import TableModels.ExpensesTableModel;
+import TableModels.PartnersTableModel;
 import TableModels.PartnershipFeeTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,10 +32,11 @@ public class Controller implements ActionListener {
     private ArrayList<ProductionFee> ProductionFee = new ArrayList<>();
     private Model model;
     private Menu menu;
-    private Members members = new Members();
+    private Partnership_Fee members = new Partnership_Fee();
     private Expenses expenses = new Expenses();
     private NewExpense newExpense = new NewExpense();
     private MonthFee monthFee = new MonthFee();
+    private Partners partners= new Partners();
 
     public Controller(Model model, Menu menu) {
         this.model = model;
@@ -66,6 +68,9 @@ public class Controller implements ActionListener {
         monthFee.jComboBoxMonth.addActionListener(listener);
         monthFee.jButtonChargeFee.addActionListener(listener);
         monthFee.jComboBoxYears.addActionListener(listener);
+        partners.jButtonReturn.addActionListener(listener);
+        partners.jButtonUnsuscribe.addActionListener(listener);
+       
     }
 
     /**
@@ -93,10 +98,17 @@ public class Controller implements ActionListener {
                 break;
 
             case "Unsuscribe":
+                this.members.setVisible(false);
+                partners.setVisible(true);
+
+            break;
+            case "Unsus":
                 try {
-                String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
-                System.out.println(dni);
-                Model.unsuscribe(dni);
+                String DNI = partners.jTablePartners.getValueAt(partners.jTablePartners.getSelectedRow(), 1) + "";
+                 
+                System.out.println(DNI);
+                
+                Model.unsuscribe(DNI);
                 actualizar();
 
             } catch (Exception z) {
@@ -108,6 +120,10 @@ public class Controller implements ActionListener {
             case "Return":
                 this.members.setVisible(false);
                 menu.setVisible(true);
+                break;
+            case "ReturnPS":
+                this.partners.setVisible(false);
+                members.setVisible(true);
                 break;
 
             case "Members":
@@ -221,6 +237,7 @@ public class Controller implements ActionListener {
 
                 break;
             case "Calculate":
+                try {
                 String p_dni = monthFee.jComboBoxDNI.getSelectedItem().toString();
                 String month="";
             month = monthFee.jComboBoxMonth.getSelectedItem().toString();
@@ -238,9 +255,15 @@ public class Controller implements ActionListener {
 
                 monthFee.jLabelTotal.setText(total + " €");
 
+            } catch (NumberFormatException asde) {
+                JOptionPane.showMessageDialog(null, "There is nothing selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+                
                 break;
+
             
             case "Charge":
+                try {
                  String[] tot;
                 tot = monthFee.jLabelTotal.getText().split(" ");
                 ProductionFee prod = new ProductionFee(monthFee.jComboBoxDNI.getSelectedItem().toString(), monthFee.jComboBoxMonth.getSelectedItem().toString(), Integer.parseInt(monthFee.jComboBoxYears.getSelectedItem().toString()), Float.parseFloat(tot[0]));
@@ -252,6 +275,10 @@ public class Controller implements ActionListener {
                 }else{
                     JOptionPane.showMessageDialog(null, "Charged succesfully");
                 }
+                
+            } catch (Exception ae) {
+                JOptionPane.showMessageDialog(null, "There is nothing selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
                 
 
 
@@ -270,6 +297,8 @@ public class Controller implements ActionListener {
         members.modelo = new PartnershipFeeTableModel();
         expenses.jTableExpenses.setModel(new ExpensesTableModel());
         members.jTableMembers.setModel(members.modelo);
+        partners.jTablePartners.setModel(new PartnersTableModel());
+        
     }
 
     public int calculateInt(String month) {
