@@ -37,6 +37,7 @@ public class Partners extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(300, 200));
 
         jTablePartners.setModel(new PartnersTableModel());
         jScrollPane1.setViewportView(jTablePartners);

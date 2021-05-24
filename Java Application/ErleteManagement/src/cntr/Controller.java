@@ -22,7 +22,7 @@ import pkg1.ProductionFee;
 
 /**
  * This class is going to control the buttons and frames
- *
+ * 
  * @author hayar.abderrafia
  */
 public class Controller implements ActionListener {
@@ -32,7 +32,7 @@ public class Controller implements ActionListener {
     private ArrayList<ProductionFee> ProductionFee = new ArrayList<>();
     private Model model;
     private Menu menu;
-    private Partnership_Fee members = new Partnership_Fee();
+    private Partnership_Fee partnershipFee = new Partnership_Fee();
     private Expenses expenses = new Expenses();
     private NewExpense newExpense = new NewExpense();
     private MonthFee monthFee = new MonthFee();
@@ -53,9 +53,9 @@ public class Controller implements ActionListener {
     private void anadirActionListener(ActionListener listener) {
         //GUIaren konponente guztiei gehitu listenerra
 //        
-        members.jButtonCharge.addActionListener(listener);
-        members.jButtonUnsuscribe.addActionListener(listener);
-        members.jButtonReturn.addActionListener(listener);
+        partnershipFee.jButtonCharge.addActionListener(listener);
+        partnershipFee.jButtonUnsuscribe.addActionListener(listener);
+        partnershipFee.jButtonReturn.addActionListener(listener);
         menu.jButtonMembers.addActionListener(listener);
         menu.jButtonExpenses.addActionListener(listener);
         expenses.jButtonNewExpense.addActionListener(listener);
@@ -68,6 +68,7 @@ public class Controller implements ActionListener {
         monthFee.jComboBoxMonth.addActionListener(listener);
         monthFee.jButtonChargeFee.addActionListener(listener);
         monthFee.jComboBoxYears.addActionListener(listener);
+        monthFee.jButtonBackE.addActionListener(listener);
         partners.jButtonReturn.addActionListener(listener);
         partners.jButtonUnsuscribe.addActionListener(listener);
        
@@ -86,7 +87,7 @@ public class Controller implements ActionListener {
                 System.out.println("Charge fee (members)");
 
                 try {
-                    String dni = members.jTableMembers.getValueAt(members.jTableMembers.getSelectedRow(), 0) + "";
+                    String dni = partnershipFee.jTableMembers.getValueAt(partnershipFee.jTableMembers.getSelectedRow(), 0) + "";
                     System.out.println(dni);
                     Model.payPartnershipFee(dni);
                     actualizar();
@@ -98,7 +99,7 @@ public class Controller implements ActionListener {
                 break;
 
             case "Unsuscribe":
-                this.members.setVisible(false);
+                this.partnershipFee.setVisible(false);
                 partners.setVisible(true);
 
             break;
@@ -107,9 +108,17 @@ public class Controller implements ActionListener {
                 String DNI = partners.jTablePartners.getValueAt(partners.jTablePartners.getSelectedRow(), 1) + "";
                  
                 System.out.println(DNI);
-                
-                Model.unsuscribe(DNI);
+                int aukera=JOptionPane.showConfirmDialog(null, "Are you sure you want to unsuscribe the partner with "+DNI+"?",
+                "Confirmation", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+                if (aukera==0){
+                    Model.unsuscribe(DNI);
                 actualizar();
+                JOptionPane.showMessageDialog(null, "Unsuscribed succesfully");
+                }else{
+                    JOptionPane.showMessageDialog(null, "No member have been unsuscribed");
+                }
+                
 
             } catch (Exception z) {
 
@@ -118,17 +127,17 @@ public class Controller implements ActionListener {
             break;
 
             case "Return":
-                this.members.setVisible(false);
+                this.partnershipFee.setVisible(false);
                 menu.setVisible(true);
                 break;
             case "ReturnPS":
                 this.partners.setVisible(false);
-                members.setVisible(true);
+                partnershipFee.setVisible(true);
                 break;
 
             case "Members":
                 System.out.println("Boton members (menu)");
-                members.setVisible(true);
+                partnershipFee.setVisible(true);
                 this.menu.setVisible(false);
 
                 break;
@@ -160,6 +169,10 @@ public class Controller implements ActionListener {
                 break;
             case "BackE":
                 this.expenses.setVisible(false);
+                menu.setVisible(true);
+                break;
+            case "BackF":
+                monthFee.setVisible(false);
                 menu.setVisible(true);
                 break;
             case "monthFee":
@@ -277,7 +290,7 @@ public class Controller implements ActionListener {
                 }
                 
             } catch (Exception ae) {
-                JOptionPane.showMessageDialog(null, "There is nothing selected", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "First you have to calculate the fee", "Error", JOptionPane.ERROR_MESSAGE);
             }
                 
 
@@ -294,9 +307,9 @@ public class Controller implements ActionListener {
      * This method updates the current table
      */
     public void actualizar() {
-        members.modelo = new PartnershipFeeTableModel();
+        partnershipFee.modelo = new PartnershipFeeTableModel();
         expenses.jTableExpenses.setModel(new ExpensesTableModel());
-        members.jTableMembers.setModel(members.modelo);
+        partnershipFee.jTableMembers.setModel(partnershipFee.modelo);
         partners.jTablePartners.setModel(new PartnersTableModel());
         
     }

@@ -102,6 +102,7 @@ public class Model {
      * This method adds new data into the table using the p parameter
      *
      * @param p .This parameter gives the information to add in our data base
+     * @return 
      */
     public static int addProductionFee(ProductionFee p) {
         String sql = "INSERT INTO Production_fee(partner_DNI,month,year,total_price) VALUES(?,?,?,?)";
@@ -196,6 +197,7 @@ public class Model {
      * This method deletes a member from the table partnership_fee
      *
      * @param dni . This parameter is says who we want to delete
+     * @return 
      */
     public static int unsuscribePF(String dni) {
         String sql = "DELETE FROM partnership_fee WHERE partner_DNI = ?";
@@ -231,34 +233,7 @@ public class Model {
         }
     }
     
-   
 
-//    public static String memberName(String dni) {
-//        
-//        
-//        String sql = "SELECT name FROM partner INNER JOIN production_fee on partner.DNI = production_fee.partner_DNI WHERE production_fee.partner_DNI = ?";
-//        
-//        try (Connection conn = connect();
-//                Statement stmt = conn.createStatement();
-//                                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//            while (rs.next()) {
-//                    pstmt.setString(1, dni);
-//                System.out.println(name);
-//            }
-//        } catch (Exception a) {
-//            System.out.println(a.getMessage());
-//        }
-//        return name;
-//    }
-    /**
-     * This method selects the name and surname of the partner from the data
-     * base
-     *
-     * @param dni This parameter saves the DNI of the partner
-     * @return Returns the name of the partner which DNI is taken form the DNI
-     * parameter
-     */
     /**
      * This method selects every room booking
      *

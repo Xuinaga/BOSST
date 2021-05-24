@@ -15,7 +15,7 @@ import pkg1.PartnershipFee;
  * @author hayar.abderrafia
  */
 public class PartnershipFeeTableModel extends AbstractTableModel{
-    private final String[] rows={"Partnership DNI","Year","Fee charged"};
+    private final String[] rows={"Partner DNI","Year","Fee charged"};
     private ArrayList<PartnershipFee> PartnershipFee=new ArrayList<>();
     
     /**
