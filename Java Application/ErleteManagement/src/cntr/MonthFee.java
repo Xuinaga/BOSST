@@ -5,6 +5,8 @@
  */
 package cntr;
 
+import javax.swing.ImageIcon;
+
 /**
  *This JFrame show you the month fee of a determined partner, month and year
  * @author hayar.abderrafia
@@ -16,6 +18,7 @@ public class MonthFee extends javax.swing.JFrame {
      */
     public MonthFee() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/erleaLogo.jfif")).getImage());
     }
 
     /**
@@ -94,7 +97,7 @@ public class MonthFee extends javax.swing.JFrame {
         jLabel6.setText("Total fee:");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        jLabel7.setText("Month fee");
+        jLabel7.setText("Production fee");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel8.setText("Charge fee");
@@ -188,7 +191,6 @@ public class MonthFee extends javax.swing.JFrame {
                         .addGap(62, 62, 62)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
                                 .addComponent(jButtonBackE, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

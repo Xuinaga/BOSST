@@ -127,7 +127,6 @@
                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                               <Component id="jButtonBackE" min="-2" pref="89" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
@@ -314,7 +313,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="26" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Month fee"/>
+        <Property name="text" type="java.lang.String" value="Production fee"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">

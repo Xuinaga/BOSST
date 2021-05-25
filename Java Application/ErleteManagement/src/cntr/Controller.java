@@ -108,7 +108,7 @@ public class Controller implements ActionListener {
                 String DNI = partners.jTablePartners.getValueAt(partners.jTablePartners.getSelectedRow(), 1) + "";
                  
                 System.out.println(DNI);
-                int aukera=JOptionPane.showConfirmDialog(null, "Are you sure you want to unsuscribe the partner with "+DNI+"?",
+                int aukera=JOptionPane.showConfirmDialog(null, "Are you sure you want to unsuscribe this partner? \n DNI: "+DNI,
                 "Confirmation", JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
                 if (aukera==0){
@@ -175,14 +175,10 @@ public class Controller implements ActionListener {
                 monthFee.setVisible(false);
                 menu.setVisible(true);
                 break;
-            case "monthFee":
+            case "productionFee":
                 this.menu.setVisible(false);
                 monthFee.setVisible(true);
-                ArrayList<Partner> pr = Model.showPartnerPR();
 
-//                for (Partner p : pr) {
-//                    monthFee.jComboBoxDNI.addItem(p.getDNI());
-//                }
 
                 break;
             case "comboBoxChangedMonth":
@@ -220,6 +216,7 @@ public class Controller implements ActionListener {
             
             case "comboBoxChangedYears":
                 monthFee.jLabelTotal.setText("");
+                monthFee.jLabelName.setText("");
                 String saas = monthFee.jComboBoxDNI.getItemAt(0);
                 monthFee.jComboBoxDNI.removeAllItems();
                 monthFee.jComboBoxDNI.addItem(saas);
@@ -244,11 +241,13 @@ public class Controller implements ActionListener {
                     if(monthFee.jComboBoxDNI.getSelectedItem().toString().equals(part.getDNI()))
                     monthFee.jLabelName.setText(part.getName()+" "+part.getSurname());
                 }
+                monthFee.jLabelTotal.setText("");
             } catch (Exception asd) {
             }
                 
 
                 break;
+             
             case "Calculate":
                 try {
                 String p_dni = monthFee.jComboBoxDNI.getSelectedItem().toString();

@@ -18,7 +18,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/images/beekeeper.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/images/erleaLogo.jfif")).getImage());
     }
 
     /**
@@ -62,7 +62,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jButtonMonthFee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/2_(4)_opt.jpg"))); // NOI18N
-        jButtonMonthFee.setActionCommand("monthFee");
+        jButtonMonthFee.setActionCommand("productionFee");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/goiburua1_opt (3).jpg"))); // NOI18N
 

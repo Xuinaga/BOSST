@@ -5,6 +5,8 @@
  */
 package cntr;
 
+import javax.swing.ImageIcon;
+
 /**
  * This is the JForm to add new expense
  * @author hayar.abderrafia
@@ -16,6 +18,7 @@ public class NewExpense extends javax.swing.JFrame {
      */
     public NewExpense() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/erleaLogo.jfif")).getImage());
     }
 
     /**

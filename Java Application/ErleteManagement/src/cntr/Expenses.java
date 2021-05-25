@@ -6,6 +6,7 @@
 package cntr;
 
 import TableModels.*;
+import javax.swing.ImageIcon;
 
 
 /**
@@ -19,6 +20,7 @@ public class Expenses extends javax.swing.JFrame {
      */
     public Expenses() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/erleaLogo.jfif")).getImage());
     }
 
     /**

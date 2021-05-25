@@ -6,6 +6,7 @@
 
 package cntr;
 import TableModels.*;
+import javax.swing.ImageIcon;
 
 
 /**
@@ -20,6 +21,7 @@ public class Partnership_Fee extends javax.swing.JFrame {
     PartnershipFeeTableModel modelo;
     public Partnership_Fee() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/images/erleaLogo.jfif")).getImage());
     }
 
     /**
