@@ -1,0 +1,139 @@
+
+body {
+  background: #456;
+  font-family: 'Open Sans', sans-serif;
+  margin:auto;
+  width:800px;
+  margin-top:100px;
+}
+
+.login {
+  width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+}
+
+.login-header,
+.login p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.login-header {
+  background: #28d;
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.login-container {
+  background: #ebebeb;
+  padding: 12px;
+}
+
+.login p {
+  padding: 12px;
+}
+
+.login input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+.login input[type="text"],
+.login input[type="password"] {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
+
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+  border-color: #888;
+}
+
+.login input[type="submit"] {
+  background: #28d;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login input[type="submit"]:hover {
+  background: #17c;
+}
+
+.login input[type="submit"]:focus {
+  border-color: #05a;
+}
+
+.close_sesion {
+  background: #28d;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sesion {
+  padding: 12px;
+  margin-bottom: 30px;
+  height: 50px;
+  width: 300px;
+}
+.user, .exit_user {
+  display:table-row;
+}
+
+.user {
+  height: 90px;
+  width: 90px;
+  top: 3px; 
+  left: 3px;
+  display:table-cell;
+}
+
+.exit_user {
+  height: 90px;
+  width: 90px;
+  display:table-cell;
+}
+
+.error_div_login {
+  background: #ebebeb;
+  padding: 12px;
+  border-color: black;
+  margin-bottom: 30px;
+}	
+
+.error_login {
+  color: red;
+  text-align: center;
+}
+
+.beer_option {
+	background: #ebebeb;
+	border: 5px solid blue; 
+	padding:50px;
+	text-align:center;
+	width: 800px;
+}
+
+.beers_table {
+	border: 5px solid #6400F5;
+	border-radius:10px;
+	padding: 5px;
+}
+
+.table_options {
+  margin-top: 30px;
+}
