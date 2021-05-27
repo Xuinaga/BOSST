@@ -28,19 +28,53 @@
                         <a class="nav-link text-body text-center" href="index.php">HOME</a>						    
                     </li>
                     <li class="nav-item dropdown flex-fill">
-                        <a class="nav-link dropdown-toggle text-body text-center" data-toggle="dropdown">BEEKEPERS AREA</a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Room booking</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Your bookings</a>
-                        </div>
-                    </li>
+						    <a class="nav-link dropdown-toggle text-body text-center" data-toggle="dropdown">BEEKEPERS AREA</a>
+							<!--If an user is logged he wiil be allowed to see the different options in the beekepers area -->
+							<?php
+								session_start();
+								if(isset($_SESSION['Erabiltzailea_aldagai_globala']))
+									{														
+							?>	
+							<div class="dropdown-menu dropdown-menu-right">
+						    	<a class="dropdown-item" href="room_booking.php">Room booking</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="bookings.php">Your bookings</a>
+						    </div>
+							<?php
+								}
+							?>
+					</li>
                     <li class="nav-item flex-fill">
                            <a class="nav-link text-body Zentratu " href="contact.php">CONTACT</a>
                     </li>
                     <li class="nav-item flex-fill">
-                        <a class="nav-link text-body Zentratu active bg-warning" href="login.php">LOGIN</a>
-                    </li>
+							<!--If an user is logged he wiil be allowed to logout -->
+						<?php
+							
+							if(isset($_SESSION['Erabiltzailea_aldagai_globala']))
+								{														
+						?>							
+							<a class="nav-link text-body Zentratu" href="irten.php">LOGOUT
+							<?php
+							include("test_connect_db.php");
+			                $link=connectDataBase();
+							$user=$_SESSION['Erabiltzailea_aldagai_globala'];
+			                $emaitza=mysqli_query($link,"select name from partner where email='$user'");
+							while($erregistroa = mysqli_fetch_array($emaitza)){
+								printf($erregistroa[0]);
+							}
+							
+						?>
+							</a>
+							<!--If a beekeper have an account he could login -->
+						<?php
+							}else{
+						?>
+							<a class="nav-link active bg-warning text-body Zentratu" href="login.php">LOGIN</a>
+						<?php
+							}
+						?>	
+						</li>
                 </ul>
             </nav>
 			<div class="pt-4 Zentratu" style="width: 30%; margin: auto">

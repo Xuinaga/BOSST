@@ -86,7 +86,7 @@
                 <p>For any question you could send us a message.</p>
                 <p>We will answer you as soon as possible.</p>
                 <div id="contact_form">
-                    <form method="post" name="contact" action="#">
+                    <form method="post" name="contact" action="mailto:suinaga.jon@uni.eus">
                             
                             <label for="author">Your Name: </label> <input type="text" id="yourname" name="yourname"/>
                             

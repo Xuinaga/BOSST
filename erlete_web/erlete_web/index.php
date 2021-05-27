@@ -14,6 +14,7 @@
 			<Link rel="stylesheet" href="CSS_SD.css"></Link>
 
 			<link rel="icon"  type="image/jpg" href="images/erleaLogo.jfif"></link>
+			
 		</head>
 		<body> 
 			<!--We create the cantainer that is going to have insade all the content-->
@@ -79,6 +80,19 @@
 						</li>
 					</ul>
 				</nav>
+				<?php 
+					$cur_date=date("d-m");
+					$year=date("Y")+1;
+					$new_fee=date("d-m", strtotime("25-05"));
+					if ($cur_date==$new_fee){
+						$dniak= mysqli_query($link, "SELECT DNI from partner where active=1") or die(mysqli_error($link));
+						while($dni_list = mysqli_fetch_array($dniak)){ 
+							$txertatu_kuota= mysqli_query($link, "INSERT INTO  partnership_fee  VALUES ('$dni_list[0]','$year',0)");
+						}
+
+					}
+					
+				?>
 				<!--Some  different paragraphs about Erlete information-->
 				<div class="container-fluid pt-4" id="content">
 					<h2 class="display-4 pt-4">WHAT IS ERLETE?</h2>
@@ -108,7 +122,7 @@
 							</ul>
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<iframe width="800" height="500" src="https://www.youtube.com/embed/9lqKwL2hKRM"></iframe>
+									<iframe style="width:58vw; height:37.5vw" src="https://www.youtube.com/embed/9lqKwL2hKRM"></iframe>
 								</div>
 								
 								<div class="carousel-item">
